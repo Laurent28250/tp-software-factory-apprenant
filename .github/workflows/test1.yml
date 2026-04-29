@@ -18,6 +18,8 @@ jobs:
           java-version: 25
           distribution: temurin
           cache: maven
+      - name: Make mvnw executable
+        run: chmod +x ./mvnw
       - name: Job maven_Build
         run: ./mvnw compile
 
