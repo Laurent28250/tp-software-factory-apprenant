@@ -48,19 +48,19 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: Upload Jacoco
-          path: C:\Users\ChristelleS\Documents\tp-software-factory-apprenant\target\site\jacoco\jacoco.xml
+          path: .\target\site\jacoco\jacoco.xml
           archive: false 
 
-  Job_Dowload_Jacoco:
-    needs: Job_Upload_Jacoco
-    runs-on: ubuntu-latest
-    steps:
-      - name: Dossier avant  DL
-        run: ls -lah
-      - name: Download Artifact step 2
-        uses: actions/download-artifact@v8
-        with:
-          name: download Jacoco
-          path: ./
-      - name: Dossier après DL
-        run: ls -lah
+  # Job_Dowload_Jacoco:
+  #   needs: Job_Upload_Jacoco
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Dossier avant  DL
+  #       run: ls -lah
+  #     - name: Download Artifact step 2
+  #       uses: actions/download-artifact@v8
+  #       with:
+  #         name: download Jacoco
+  #         path: ./
+  #     - name: Dossier après DL
+  #       run: ls -lah
