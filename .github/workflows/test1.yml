@@ -99,6 +99,10 @@ jobs:
     needs: Job_Verify
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
+        with:
+        # Disabling shallow clones is recommended for improving the relevancy of reporting
+          fetch-depth: 0
       - name: Download Classes
         uses: actions/download-artifact@v8
         with:
@@ -111,10 +115,6 @@ jobs:
           path: ./
       - name: List dossier
         run: ls -lah
-      - uses: actions/checkout@v6
-        with:
-        # Disabling shallow clones is recommended for improving the relevancy of reporting
-          fetch-depth: 0
       - name: SonarQube Scan
         uses: sonarsource/sonarcloud-github-action@v5
         env:
