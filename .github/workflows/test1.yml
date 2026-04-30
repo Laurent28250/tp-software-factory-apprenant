@@ -6,6 +6,10 @@ on:
   pull_request:
     types: [opened, reopened]
     branches: [main, master]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
   
 jobs:
   test:
@@ -140,7 +144,7 @@ jobs:
       - name: Login to tp-software-factory-apprenant
         uses: docker/login-action@v4
         with:
-          registry: ghcr.io
+          registry: ${{ env:REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up JDK 25
@@ -149,11 +153,13 @@ jobs:
           java-version: 25
           distribution: temurin
           cache: maven
+      - name: Job Maven_Verify
+        run: ./mvnw verify -B
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v6
         with:
-          images: ghcr.io/laurent28250/tp-software-factory-apprenant:latest
+          images: ${{ env.REGISTRY }}/${{ IMAGE_NAME }}
       - name: Login to DockerHub
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v4
