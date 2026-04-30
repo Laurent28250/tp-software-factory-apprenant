@@ -181,3 +181,15 @@ jobs:
           push: true
           tags: ghcr.io/laurent28250/tp-software-factory-apprenant:latest
           labels: ${{ steps.meta.outputs.labels }}
+  
+  deploy-prod:
+    name: Deploy to Production
+    needs: sonarqube
+    runs-on: ubuntu-latest
+    environment: Prod-Laurent
+    container: ghcr.io/laurent28250/tp-software-factory-apprenant:latest
+    env:
+      SVC_ID: tp-software-factory-laurent
+      RAILWAY_TOKEN: ${{ secrets.RAILWAY_DEPLOY }}
+    steps:
+      - run: railway redeploy --service=${{ env.SVC_ID }} --yes
