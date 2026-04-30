@@ -187,7 +187,7 @@ jobs:
     needs: docker
     runs-on: ubuntu-latest
     environment: Prod-Laurent
-    container: ghcr.io/laurent28250/tp-software-factory-apprenant:latest
+    container: ghcr.io/railwayapp/cli:latest
     env:
       SVC_ID: tp-software-factory-laurent
       RAILWAY_TOKEN: ${{ secrets.RAILWAY_DEPLOY }}
