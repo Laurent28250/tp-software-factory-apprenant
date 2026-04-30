@@ -12,6 +12,15 @@ env:
   IMAGE_NAME: ${{ github.repository }}
   
 jobs:
+
+  Hello:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Hello
+      uses: Luctum/test-action@main
+      with:
+        who-to-greet: "Hello"
+ 
   test:
     runs-on: ubuntu-latest
     steps:
