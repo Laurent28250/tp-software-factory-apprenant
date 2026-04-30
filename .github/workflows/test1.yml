@@ -91,7 +91,7 @@ jobs:
       - name: Archive coverage report
         uses: actions/upload-artifact@v7
         with:
-          name: Upload Jacoco
+          name: Jacoco
           path: ./target/site/jacoco/jacoco.xml
           archive: false 
   
@@ -103,6 +103,11 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: Upload Classes
+          path: ./Classes
+      - name: Download Classes
+        uses: actions/download-artifact@v8
+        with:
+          name: Jacoco
           path: ./
       - uses: actions/checkout@v6
         with:
@@ -112,3 +117,9 @@ jobs:
         uses: sonarsource/sonarcloud-github-action@v5
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.organization=Laurent28250
+            -Dsonar.projectKey=laurent28250
+            -Dsonar.coverage.jacoco.xmlReportPaths=./jacoco.xml
+            -Dsonar.sources=./Classes
