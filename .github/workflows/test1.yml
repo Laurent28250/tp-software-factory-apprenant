@@ -94,8 +94,8 @@ jobs:
           name: Upload Jacoco
           path: ./target/site/jacoco/jacoco.xml
           archive: false 
-
-   sonarqube:
+  
+  sonarqube:
     needs: Job_Build
     runs-on: ubuntu-latest
     steps:
