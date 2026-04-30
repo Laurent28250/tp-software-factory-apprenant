@@ -96,7 +96,7 @@ jobs:
           archive: false 
   
   sonarqube:
-    needs: Job_Build
+    needs: Job_Verify
     runs-on: ubuntu-latest
     steps:
       - name: Download Classes
