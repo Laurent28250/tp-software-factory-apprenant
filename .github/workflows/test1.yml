@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         fetch-depth: 0
     - name: Secret Scanning
@@ -67,6 +67,11 @@ jobs:
         run: chmod +x ./mvnw
       - name: Job maven_Build
         run: ./mvnw compile
+      - name: Classes report
+        uses: actions/upload-artifact@v7
+        with:
+          name: Upload Classes
+          path: ./target/classes/*
 
   Job_Verify:
     needs: Job_Build
@@ -90,3 +95,15 @@ jobs:
           path: ./target/site/jacoco/jacoco.xml
           archive: false 
 
+   sonarqube:
+    needs: Job_Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        # Disabling shallow clones is recommended for improving the relevancy of reporting
+        fetch-depth: 0
+    - name: SonarQube Scan
+      uses: sonarsource/sonarcloud-github-action@<action version> # Ex: v4.0.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
