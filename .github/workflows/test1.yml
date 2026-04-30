@@ -109,6 +109,8 @@ jobs:
         with:
           name: jacoco.xml
           path: ./
+      - name: List dossier
+        run: ls -lah
       - uses: actions/checkout@v6
         with:
         # Disabling shallow clones is recommended for improving the relevancy of reporting
